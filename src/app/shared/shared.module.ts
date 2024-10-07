@@ -10,11 +10,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input'
 import {MatTableModule} from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
+import { FontSize20Directive } from './directives/font-size20.directive';
 
 
 @NgModule({
   declarations: [
-    FullNamePipe
+    FullNamePipe,
+    FontSize20Directive
   ],
   imports: [
     CommonModule,
@@ -28,7 +30,8 @@ import { FullNamePipe } from './pipes/full-name.pipe';
     ReactiveFormsModule,
     MatInputModule,
     MatTableModule,
-    FullNamePipe
+    FullNamePipe,
+    FontSize20Directive
   ],
 })
 export class SharedModule { }

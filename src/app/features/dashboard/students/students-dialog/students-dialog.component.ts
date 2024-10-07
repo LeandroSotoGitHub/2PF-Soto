@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FormValidatorService } from '../../../../core/services/form-validator.service';
 import { noNumbersValidator } from 'src/app/core/validators/validators';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Student } from '../models';
+
+interface StudentDialogData {
+  editingStudent?: Student
+}
+
 
 @Component({
   selector: 'app-students-dialog',
@@ -11,17 +17,20 @@ import { MatDialogRef } from '@angular/material/dialog';
 })
 export class StudentsDialogComponent {
   studentsForm: FormGroup
+  existingIds: number[] = []
 
   constructor(
     private fb: FormBuilder,
     private formValidatorService: FormValidatorService,
-    private matDialogRef: MatDialogRef<StudentsDialogComponent>
+    private matDialogRef: MatDialogRef<StudentsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data?: StudentDialogData
   ){ 
     this.studentsForm = this.fb.group({
-      name: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(20), noNumbersValidator()]],
-      surname: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(20), noNumbersValidator()]],
+      firstName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(20), noNumbersValidator()]],
+      lastName: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(20), noNumbersValidator()]],
       mail: ['', [Validators.required, Validators.email]]
     })
+    this.patchFormValue()
   }
 
   getErrorMessage(controlName: string): string{
@@ -33,6 +42,38 @@ export class StudentsDialogComponent {
   }
 
   onSave():void {
-    this.matDialogRef.close({ resultado: 'ok'})
+    if(this.studentsForm.invalid){
+      this.studentsForm.markAllAsTouched()
+    }else{
+      this.matDialogRef.close({
+        ...this.studentsForm.value,
+        id: this.isEditing ? this.data!.editingStudent!.id : this.generateUniqueId(),
+        createdAt: this.isEditing ? this.data!.editingStudent!.createdAt : new Date()
+      })
+    }
+  }
+
+  patchFormValue(){
+    if(this.data?.editingStudent){
+      this.studentsForm.patchValue(this.data.editingStudent)
+    }
+  }
+
+
+  generateUniqueId(): number {
+    let newId = Math.floor(Math.random() * 9000) + 1000
+    
+    // Sigue generando un nuevo ID mientras ya exista en el array
+    while (this.existingIds.includes(newId)) {
+      newId = Math.floor(Math.random() * 9000) + 1000
+    }
+    
+    // Almacena el ID una vez que es único
+    this.existingIds.push(newId)
+    return newId
+  }
+
+  private get isEditing(){
+    return !!this.data?.editingStudent
   }
 }
