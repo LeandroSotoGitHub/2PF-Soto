@@ -11,6 +11,8 @@ import {MatInputModule} from '@angular/material/input'
 import {MatTableModule} from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { FontSize20Directive } from './directives/font-size20.directive';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+
 
 
 @NgModule({
@@ -31,7 +33,8 @@ import { FontSize20Directive } from './directives/font-size20.directive';
     MatInputModule,
     MatTableModule,
     FullNamePipe,
-    FontSize20Directive
+    FontSize20Directive,
+    MatProgressSpinnerModule
   ],
 })
 export class SharedModule { }

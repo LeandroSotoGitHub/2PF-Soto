@@ -41,15 +41,19 @@ export class StudentsDialogComponent {
     return this.formValidatorService.hasError(this.studentsForm, controlName);
   }
 
-  onSave():void {
-    if(this.studentsForm.invalid){
-      this.studentsForm.markAllAsTouched()
-    }else{
+  onSave(): void {
+    if (this.studentsForm.invalid) {
+      this.studentsForm.markAllAsTouched();
+    } else {
       this.matDialogRef.close({
         ...this.studentsForm.value,
-        id: this.isEditing ? this.data!.editingStudent!.id : this.generateUniqueId(),
-        createdAt: this.isEditing ? this.data!.editingStudent!.createdAt : new Date()
-      })
+        id: this.isEditing
+          ? this.data!.editingStudent!.id
+          : this.generateUniqueId(),
+        createdAt: this.isEditing
+          ? this.data!.editingStudent!.createdAt
+          : new Date(),
+      });
     }
   }
 
