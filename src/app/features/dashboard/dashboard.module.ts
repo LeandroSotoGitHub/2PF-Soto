@@ -6,12 +6,14 @@ import { DashboardComponent } from './dashboard.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { StudentsModule } from './students/students.module';
 import { ToolbarComponent } from './toolbar/toolbar.component';
+import { SideNavComponent } from './side-nav/side-nav.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     ToolbarComponent,
+    SideNavComponent,
   ],
   imports: [
     CommonModule,

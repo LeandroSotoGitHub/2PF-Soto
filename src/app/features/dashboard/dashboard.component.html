@@ -1,36 +1,7 @@
 <mat-drawer-container class="example-container" autosize>
   <!-- sidenav -->
   <mat-drawer #drawer class="example-sidenav" mode="side">
-    <mat-nav-list>
-      <a
-        routerLink="home"
-        routerLinkActive="active-link"
-        mat-list-item>
-        <mat-icon matListItemIcon>home</mat-icon>
-        Inicio
-      </a>
-      <a
-        routerLink="students"
-        routerLinkActive="active-link"
-        mat-list-item>
-        <mat-icon matListItemIcon>assignment_ind</mat-icon>
-        Estudiantes
-      </a>
-      <a
-        routerLink="courses"
-        routerLinkActive="active-link"
-        mat-list-item>
-        <mat-icon matListItemIcon>school</mat-icon>
-        Cursos
-      </a>
-      <a
-        routerLink="/auth/login"
-        routerLinkActive="active-link"
-        mat-list-item>
-        <mat-icon matListItemIcon>logout</mat-icon>
-        Cerrar sesión
-      </a>
-    </mat-nav-list>
+    <app-side-nav></app-side-nav>
   </mat-drawer>
     <!-- main content -->
     <div class="example-sidenav-content">
