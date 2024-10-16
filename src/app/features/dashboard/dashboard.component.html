@@ -1,24 +1,42 @@
 <mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Auto-resizing sidenav</p>
-      <ng-container *ngIf="showFiller">
-          <p>Lorem, ipsum dolor sit amet consectetur.</p>
-      </ng-container>
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
-    </mat-drawer>
+  <!-- sidenav -->
+  <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-nav-list>
+      <a
+        routerLink="home"
+        routerLinkActive="active-link"
+        mat-list-item>
+        <mat-icon matListItemIcon>home</mat-icon>
+        Inicio
+      </a>
+      <a
+        routerLink="students"
+        routerLinkActive="active-link"
+        mat-list-item>
+        <mat-icon matListItemIcon>assignment_ind</mat-icon>
+        Estudiantes
+      </a>
+      <a
+        routerLink="courses"
+        routerLinkActive="active-link"
+        mat-list-item>
+        <mat-icon matListItemIcon>school</mat-icon>
+        Cursos
+      </a>
+      <a
+        routerLink="/auth/login"
+        routerLinkActive="active-link"
+        mat-list-item>
+        <mat-icon matListItemIcon>logout</mat-icon>
+        Cerrar sesión
+      </a>
+    </mat-nav-list>
+  </mat-drawer>
     <!-- main content -->
     <div class="example-sidenav-content">
-        <!-- toolbar -->
-        <mat-toolbar>
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
-              <mat-icon>menu</mat-icon>
-            </button>
-            <span>My App</span>
-        </mat-toolbar>
-
-        <app-students></app-students>
-
+      <!-- toolbar -->
+      <app-toolbar [drawer]="drawer"></app-toolbar>
+      <!-- lista estudiantes -->
+      <router-outlet></router-outlet>
     </div>
 </mat-drawer-container>

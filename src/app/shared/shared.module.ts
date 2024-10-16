@@ -12,6 +12,9 @@ import {MatTableModule} from '@angular/material/table';
 import { FullNamePipe } from './pipes/full-name.pipe';
 import { FontSize20Directive } from './directives/font-size20.directive';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
+import {MatListModule} from '@angular/material/list';
+
 
 
 
@@ -24,6 +27,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     CommonModule,
   ],
   exports: [
+    MatListModule,
     MatSidenavModule,
     MatButtonModule,
     MatToolbarModule,
@@ -34,7 +38,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
     MatTableModule,
     FullNamePipe,
     FontSize20Directive,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatCardModule
   ],
 })
 export class SharedModule { }
