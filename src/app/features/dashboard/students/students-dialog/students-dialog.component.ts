@@ -26,8 +26,8 @@ export class StudentsDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data?: StudentDialogData
   ){ 
     this.studentsForm = this.fb.group({
-      firstName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(20), noNumbersValidator()]],
-      lastName: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(20), noNumbersValidator()]],
+      firstName: ['', [Validators.required, Validators.minLength(3),Validators.maxLength(20), Validators.pattern(/^[^\d]*$/) ]],
+      lastName: ['',[Validators.required, Validators.minLength(3),Validators.maxLength(20), Validators.pattern(/^[^\d]*$/) ]],
       mail: ['', [Validators.required, Validators.email]]
     })
     this.patchFormValue()

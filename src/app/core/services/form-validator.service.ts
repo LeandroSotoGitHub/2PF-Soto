@@ -13,7 +13,7 @@ export class FormValidatorService {
     email: 'El formato del correo es incorrecto',
     minlength: 'Ingresa mas caracteres',
     maxlength: 'Se supero el maximo de caracteres',
-    noNumbers: 'No ingresar números'
+    pattern: 'No ingresar números'
   }
 
   getErrorMessage(form: FormGroup, controlName: string): string {
