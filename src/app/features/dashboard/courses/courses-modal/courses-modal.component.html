@@ -1,0 +1,40 @@
+<div class="container">    
+    <h1 mat-dialog-title class="text-white">{{ data?.editingCourse ? "Editando" : "Creando"}} curso</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="courseForm">
+            <div class="row g-3">
+                <!-- Campo Nombre -->
+                <div class="col-12 col-md-6">
+                    <mat-form-field appearance="outline">
+                    <mat-label>Titulo del curso</mat-label>
+                    <input matInput placeholder="Titulo del curso" formControlName="name" />
+                    <mat-error *ngIf="hasError('name')">{{ getErrorMessage('name') }}</mat-error>
+                    </mat-form-field>
+                </div>
+                <!-- DATEPICKER (RANGO) -->
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha inicio - Fecha fin</mat-label>
+                    <mat-date-range-input [rangePicker]="picker">
+                    <input
+                        matStartDate
+                        formControlName="startDate"
+                        placeholder="Fecha inicio"
+                    />
+                    <input matEndDate formControlName="endDate" placeholder="Fecha fin" />
+                    </mat-date-range-input>
+                    <mat-hint style="color: #fff;">MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="picker"
+                    ></mat-datepicker-toggle>
+                    <mat-date-range-picker #picker></mat-date-range-picker>
+                </mat-form-field>
+            </div>
+        </form>
+    </div>
+
+    <div mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close class="mx-3">Cancelar</button>
+        <button mat-flat-button (click)="onSave()" color="primary">Guardar</button>
+    </div>
+</div>

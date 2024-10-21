@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { StudentsDialogComponent } from './students-dialog/students-dialog.component';
 import { Student } from './models';
 import { StudentsService } from '../../../core/services/students.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-students',
@@ -10,9 +11,12 @@ import { StudentsService } from '../../../core/services/students.service';
   styleUrls: ['./students.component.css'],
 })
 export class StudentsComponent implements OnInit {
+
   constructor(
     private matDialog: MatDialog,
-    private StudentsService: StudentsService
+    private StudentsService: StudentsService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   isLoading: boolean = false;
@@ -105,5 +109,9 @@ export class StudentsComponent implements OnInit {
         },
       });
     }
+  }
+
+  goToDetail(id: number) {
+    this.router.navigate([id,'detail'], { relativeTo: this.activatedRoute })
   }
 }

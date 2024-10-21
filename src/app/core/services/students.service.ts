@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { delay, map, Observable, of } from 'rxjs';
 import { Student } from 'src/app/features/dashboard/students/models';
 
 let DATABASE: Student[] = [
@@ -55,5 +55,10 @@ export class StudentsService {
   addStudent(newStudent: Student): Observable<Student[]> {
     DATABASE = [...DATABASE, newStudent];
     return this.simulateRequest(DATABASE);
+  }
+
+
+  getStudentsBy(id:number): Observable<Student|undefined>{
+    return this.getStudents().pipe(map((student) => student.find((s)=> s.id === id)))
   }
 }

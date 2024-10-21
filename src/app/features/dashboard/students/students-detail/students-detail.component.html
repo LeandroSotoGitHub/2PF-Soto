@@ -1,0 +1,13 @@
+<mat-spinner *ngIf="isLoading"></mat-spinner>
+
+<div *ngIf="!isLoading" >
+    <mat-card>
+        <mat-card-title>
+            Detalles del Alumno 
+            {{student?.firstName + ' ' + student?.lastName }}
+        </mat-card-title>
+        <mat-card-content>
+            <div> </div>
+        </mat-card-content>
+    </mat-card>
+</div>

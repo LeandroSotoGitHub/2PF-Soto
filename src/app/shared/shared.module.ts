@@ -14,6 +14,9 @@ import { FontSize20Directive } from './directives/font-size20.directive';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatCardModule} from '@angular/material/card';
 import {MatListModule} from '@angular/material/list';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 
 
@@ -39,7 +42,9 @@ import {MatListModule} from '@angular/material/list';
     FullNamePipe,
     FontSize20Directive,
     MatProgressSpinnerModule,
-    MatCardModule
+    MatCardModule,
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 })
 export class SharedModule { }
