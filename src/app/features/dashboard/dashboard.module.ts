@@ -18,8 +18,7 @@ import { SideNavComponent } from './side-nav/side-nav.component';
   imports: [
     CommonModule,
     DashboardRoutingModule,
-    SharedModule,
-    StudentsModule
+    SharedModule
   ]
 })
 export class DashboardModule { }

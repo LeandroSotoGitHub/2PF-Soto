@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Estudiantes",
+      "description": "Accede a la lista de estudiantes, inscríbelos en cursos o edita su información.",
+      "link": "/students",
+      "buttonText": "Gestionar Estudiantes"
+    },
+    {
+      "title": "Cursos",
+      "description": "Consulta los cursos disponibles, edítalos o asigna estudiantes a cada uno.",
+      "link": "/courses",
+      "buttonText": "Gestionar Cursos"
+    },
+    {
+      "title": "Inscripciones",
+      "description": "Consulta el estado de inscripciones y administra los alumnos en los cursos.",
+      "link": "/enrollments",
+      "buttonText": "Gestionar Inscripciones"
+    }
+  ]

@@ -8,7 +8,7 @@ import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-br
 import { DashboardModule } from './features/dashboard/dashboard.module';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AuthModule } from './features/auth/auth.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +22,7 @@ import { AuthModule } from './features/auth/auth.module';
     DashboardModule,
     MatDialogModule,
     ReactiveFormsModule,
-    AuthModule
+    HttpClientModule
   ],
   providers: [provideAnimations()],
   bootstrap: [AppComponent]
