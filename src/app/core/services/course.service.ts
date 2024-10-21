@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { delay, Observable, of } from 'rxjs';
+import { delay, map, Observable, of } from 'rxjs';
 import { Courses } from 'src/app/features/dashboard/courses/models';
 import { generateUniqueId } from 'src/app/shared/utils';
 
@@ -53,4 +53,9 @@ export class CourseService {
     COURSES_DB = [...COURSES_DB, newCourses];
     return this.simulateRequest(COURSES_DB);
   }
+
+  getCourseById(id:number): Observable<Courses|undefined>{
+    return this.getCourses().pipe(map((student) => student.find((s)=> s.id === id)))
+  }
+
 }
