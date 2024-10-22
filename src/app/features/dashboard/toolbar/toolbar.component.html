@@ -1,6 +1,16 @@
 <mat-toolbar>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
-    <mat-icon>menu</mat-icon>
-  </button>
-  <span>CodeSYNC</span>
+  <div class="d-flex justify-content-between align-items-center w-100 h-100">
+    <div class="d-flex justify-content-center align-items-center">
+      <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>CodeSYNC</span>
+    </div>
+    <div *ngIf="authUser | async; let authUser_" class="d-flex align-items-center">
+      <span class="m-2">{{ authUser_.firstName +' '+ authUser_.lastName }}</span>
+      <button mat-icon-button>
+        <mat-icon>account_circle</mat-icon>
+      </button>
+    </div>
+  </div>
 </mat-toolbar>

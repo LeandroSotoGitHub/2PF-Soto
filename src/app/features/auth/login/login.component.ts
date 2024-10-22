@@ -11,6 +11,7 @@ import { AuthService } from '../../../core/services/auth.service';
 })
 export class LoginComponent {
   loginForm: FormGroup
+  passwordInputType: 'password' | 'text' = 'password'
 
   constructor(
     private router:Router,
@@ -18,7 +19,7 @@ export class LoginComponent {
     private formValidatorService: FormValidatorService,
     private authService:AuthService
   ){this.loginForm = fb.group({
-    email: ['',[Validators.required]],
+    email: ['',[Validators.required, Validators.email]],
     password: ['', [Validators.required]]
   }) } 
 
@@ -26,9 +27,8 @@ export class LoginComponent {
     if (this.loginForm.invalid) {
       this.loginForm.markAllAsTouched();
     } else {
-      console.log(this.loginForm)
       this.authService.login(this.loginForm.value).subscribe({
-        next: (result) => {
+        next: () => {
           this.router.navigate(['dashboard', 'home']);
         },
         error: (err) => {
@@ -41,6 +41,14 @@ export class LoginComponent {
     }
   }
 
+  toggleInputType(): void{
+    if (this.passwordInputType === 'password'){
+      this.passwordInputType = 'text'
+    }else{
+      this.passwordInputType = 'password'
+    }
+  }
+
   getErrorMessage(controlName: string): string{
     return this.formValidatorService.getErrorMessage(this.loginForm, controlName)
   }
@@ -50,6 +58,6 @@ export class LoginComponent {
   }
 
   toRegister(){
-    this.router.navigate([('/register')])
+    this.router.navigate([['/register']])
   }
 }

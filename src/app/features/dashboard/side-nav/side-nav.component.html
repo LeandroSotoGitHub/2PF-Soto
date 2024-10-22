@@ -1,35 +1,42 @@
 <mat-nav-list>
     <a
       routerLink="home"
-      routerLinkActive="active-link"
+      routerLinkActive
+      #homeLink="routerLinkActive"
+      [activated]="homeLink.isActive"
       mat-list-item>
       <mat-icon matListItemIcon>home</mat-icon>
       Inicio
     </a>
     <a
       routerLink="students"
-      routerLinkActive="active-link"
+      routerLinkActive
+      #studentsLink="routerLinkActive"
+      [activated]="studentsLink.isActive"
       mat-list-item>
       <mat-icon matListItemIcon>assignment_ind</mat-icon>
       Alumnos
     </a>
     <a
       routerLink="courses"
-      routerLinkActive="active-link"
+      routerLinkActive
+      #coursesLink="routerLinkActive"
+      [activated]="coursesLink.isActive"
       mat-list-item>
-      <mat-icon matListItemIcon>school</mat-icon>
+      <mat-icon matListItemIcon>import_contacts</mat-icon>
       Cursos
     </a>
     <a
-      routerLink=""
-      routerLinkActive="active-link"
+      routerLink="xxx"
+      routerLinkActive
+      #clasesLink="routerLinkActive"
+      [activated]="clasesLink.isActive"
       mat-list-item>
-      <mat-icon matListItemIcon></mat-icon>
+      <mat-icon matListItemIcon>school</mat-icon>
       Clases
     </a>
     <a
-      routerLink="/auth/login"
-      routerLinkActive="active-link"
+      (click)="logout()"
       mat-list-item>
       <mat-icon matListItemIcon>logout</mat-icon>
       Cerrar sesión

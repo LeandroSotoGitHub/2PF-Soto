@@ -12,6 +12,7 @@ const FAKE_USER: User = {
   id: generateUniqueId(),
   createdAt: new Date(),
   password: '123456',
+  token:'abcsdfhsdjkfbh21231nklsnvsajkqw12132123',
 }
 
 @Injectable({
@@ -26,16 +27,25 @@ export class AuthService {
 
   login(data: AuthData): Observable<User> {
     if (data.email != FAKE_USER.email || data.password != FAKE_USER.password) {
-      return throwError(() => new Error('Los datos son invalidos'));
+      return throwError(() => new Error('Los datos son invalidos'))
     }
-
-    this._authUser$.next(FAKE_USER);
-
-    return of(FAKE_USER);
+    this._authUser$.next(FAKE_USER)
+    localStorage.setItem('token', FAKE_USER.token)
+    return of(FAKE_USER)
   }
-
+  verifyToken(): Observable<boolean>{
+    const isValid = localStorage.getItem('token') === FAKE_USER.token
+    
+    if(isValid){
+      this._authUser$.next(FAKE_USER)
+    }else{
+      this._authUser$.next(null)
+    }
+    return of(isValid)
+  }
   logout() {
     this._authUser$.next(null);
-    this.router.navigate(['auth', 'login']);
+    this.router.navigate(['auth', 'login'])
+    localStorage.removeItem('token')
   }
 }

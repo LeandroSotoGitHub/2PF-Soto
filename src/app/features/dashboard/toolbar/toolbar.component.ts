@@ -1,5 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { User } from '../models';
 
 @Component({
   selector: 'app-toolbar',
@@ -8,4 +11,10 @@ import { MatDrawer } from '@angular/material/sidenav';
 })
 export class ToolbarComponent {
   @Input() drawer!: MatDrawer
+
+  constructor(authService: AuthService){
+    this.authUser = authService.authUser$
+  }
+
+  authUser: Observable<User | null>
 }
