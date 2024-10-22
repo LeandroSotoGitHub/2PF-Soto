@@ -2,6 +2,7 @@ import { Component, OnInit, Pipe } from '@angular/core';
 import { HomeService } from '../../../core/services/home.service';
 import { StudentsService } from 'src/app/core/services/students.service';
 import { HomeFeatures } from './models/index';
+import { CourseService } from 'src/app/core/services/course.service';
 
 @Component({
   selector: 'app-home',
@@ -17,13 +18,15 @@ export class HomeComponent implements OnInit{
 
   constructor(
     private homeService: HomeService,
-    private studentsService: StudentsService
+    private studentsService: StudentsService,
+    private coursesService: CourseService
   ){}
 
 
   ngOnInit(): void {
     this.loadHomefeatures()
     this.fetchStudents()
+    this.fetchCourses()
   }
 
   loadHomefeatures(){
@@ -38,6 +41,14 @@ export class HomeComponent implements OnInit{
     this.studentsService.getStudents().subscribe({
       next: (students) => {
         this.totalStudents = students.length
+      }
+    })
+  }
+
+  fetchCourses(){
+    this.coursesService.getCourses().subscribe({
+      next: (c) => {
+        this.totalCourses = c.length
       }
     })
   }
