@@ -9,9 +9,12 @@ import { Courses } from '../courses/models';
 })
 export class ClassesComponent implements OnInit{
   courses: Courses[] = []
-  selectedCourse!: Courses;
+  selectedCourse!: Courses
+  isLoading: boolean = true
   readonly panelOpenState = signal(false);
+
   constructor(private courseService: CourseService){}
+
   ngOnInit(): void {
     this.getCourses()
   }
@@ -19,6 +22,7 @@ export class ClassesComponent implements OnInit{
   getCourses(){
     this.courseService.getCourses().subscribe({
       next: (c) =>{
+        this.isLoading = false
         this.courses = c
         this.selectedCourse = this.courses[0]
       } 

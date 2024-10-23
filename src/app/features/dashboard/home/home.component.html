@@ -1,7 +1,7 @@
-<div class="container mt-5">
+<div class="p-3">
   <!-- Header -->
-  <div class="row">
-    <div class="col text-center p-0">
+  <div class="m-2">
+    <div class="col text-center">
       <h1 class="display-4">Bienvenido al Dashboard Educativo de CodeSync</h1>
       <p class="lead">
         Gestiona estudiantes, cursos y mucho más desde un solo lugar.
@@ -11,7 +11,7 @@
 
   <!-- Tarjetas de funcionalidades -->
   <div class="row justify-content-center">
-    <div class="col-md-4" *ngFor="let feature of features">
+    <div class="col-md-3" *ngFor="let feature of features">
       <app-feature-card
         [title]="feature.title"
         [description]="feature.description"
@@ -23,8 +23,8 @@
   </div>
 
   <!-- Sección de resumen -->
-  <div class="row my-5 justify-content-center">
-    <div class="col-md-8">
+  <div class="row justify-content-center">
+    <div class="col-md-9">
       <mat-card>
         <mat-card-header>
           <mat-card-title>Resumen General</mat-card-title>
