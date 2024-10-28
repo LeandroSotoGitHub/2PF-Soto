@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { AuthData } from 'src/app/features/auth/models';
 import { User } from 'src/app/features/dashboard/models';
+import { environment } from 'src/environments/environment.development';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,8 @@ import { User } from 'src/app/features/dashboard/models';
 export class AuthService {
   private _authUser$ = new BehaviorSubject<null | User>(null);
   public authUser$ = this._authUser$.asObservable();
+  private baseUrl = environment.apiBaseUrl
+
 
   constructor(
     private router: Router, 
@@ -29,7 +32,7 @@ export class AuthService {
   }
 
   login(data: AuthData): Observable<User> {
-    return this.httpClient.get<User[]>(`http://localhost:3000/users?email=${data.email}&password=${data.password}`)
+    return this.httpClient.get<User[]>(`${this.baseUrl}/users?email=${data.email}&password=${data.password}`)
     .pipe(map((u) => {
       const user = this.handleAuth(u)
       if(user){
@@ -44,7 +47,7 @@ export class AuthService {
   )
   }
   verifyToken(): Observable<boolean>{
-    return this.httpClient.get<User[]>(`http://localhost:3000/users?token=${localStorage.getItem('token')}`)
+    return this.httpClient.get<User[]>(`${this.baseUrl}/users?token=${localStorage.getItem('token')}`)
     .pipe(map((u) => {
       const user = this.handleAuth(u)
       return !!user
@@ -56,3 +59,4 @@ export class AuthService {
     localStorage.removeItem('token')
   }
 }
+ 

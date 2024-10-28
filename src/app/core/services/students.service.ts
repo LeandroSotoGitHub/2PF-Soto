@@ -1,64 +1,41 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { delay, map, Observable, of } from 'rxjs';
+import { concatMap, delay, map, Observable, of } from 'rxjs';
 import { Student } from 'src/app/features/dashboard/students/models';
+import { environment } from 'src/environments/environment.development';
 
-let DATABASE: Student[] = [
-  {
-    id: 1442,
-    firstName: 'juan',
-    lastName: 'perez',
-    mail: 'juan.perez@gmail.com',
-    createdAt: new Date(),
-  },
-  {
-    id: 2343,
-    firstName: 'pedro',
-    lastName: 'gomez',
-    mail: 'gomezzzpedro@hotmail.com',
-    createdAt: new Date(),
-  },
-  {
-    id: 3422,
-    firstName: 'juan',
-    lastName: 'luis',
-    mail: 'luisluisjuanjuan@msn.com.ar',
-    createdAt: new Date(),
-  },
-];
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class StudentsService {
-  constructor() { }
+  private baseUrl = environment.apiBaseUrl
 
-  private simulateRequest(data: Student[]): Observable<Student[]> {
-    return of(data).pipe(delay(1000));
-  }
+  constructor(private httpClient: HttpClient) { }
+
 
   getStudents(): Observable<Student[]> {
-    return this.simulateRequest(DATABASE);
+    return this.httpClient.get<Student[]>(`${this.baseUrl}/students`)
   }
 
   removeStudentById(id: number): Observable<Student[]> {
-    DATABASE = DATABASE.filter(student => student.id !== id);
-    return this.simulateRequest(DATABASE);
+    return this.httpClient.delete<Student>(`${this.baseUrl}/students/${id}`)
+    .pipe(concatMap(() => this.getStudents()))
   }
 
 
   updateStudentById(id: number, update: Partial<Student>): Observable<Student[]> {
-    DATABASE = DATABASE.map(student => student.id === id ? { ...student, ...update } : student);
-    return this.simulateRequest(DATABASE);
+    return this.httpClient.patch(`${this.baseUrl}/students/${id}`, update)
+    .pipe(concatMap(()=> this.getStudents()))
   }
 
-  addStudent(newStudent: Student): Observable<Student[]> {
-    DATABASE = [...DATABASE, newStudent];
-    return this.simulateRequest(DATABASE);
+  addStudent(newStudent: Omit<Student, 'id'>): Observable<Student> {
+    return this.httpClient.post<Student>(`${this.baseUrl}/students`, {...newStudent, createdAt: new Date().toISOString()})
   }
 
 
   getStudentsBy(id:number): Observable<Student|undefined>{
-    return this.getStudents().pipe(map((student) => student.find((s)=> s.id === id)))
+    return this.httpClient.get<Student>(`${this.baseUrl}/students/${id}`)
   }
 }

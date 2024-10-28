@@ -57,7 +57,11 @@ export class StudentsComponent implements OnInit {
             if (editingStudent) {
               this.handleUpdate(editingStudent.id, result);
             } else {
-              this.handleAdd(result);
+              this.StudentsService
+              .addStudent(result)
+              .subscribe({
+                next: () => this.loadStudents()
+              })
             }
           }
         },
@@ -79,20 +83,6 @@ export class StudentsComponent implements OnInit {
     });
   }
 
-  handleAdd(newStudent: Student): void {
-    this.isLoading = true;
-    this.StudentsService.addStudent(newStudent).subscribe({
-      next: (students) => {
-        this.dataSource = students;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-  }
 
   onDelete(id: number) {
     this.isLoading = true;

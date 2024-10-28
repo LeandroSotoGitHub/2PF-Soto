@@ -22,9 +22,11 @@ export class StudentsDetailComponent implements OnInit{
   ngOnInit(): void {
     this.studentId = Number(this.activatedRoute.snapshot.params['id'])
 
+    console.log(this.studentId)
     if (this.studentId) {
       this.studentsService.getStudentsBy(this.studentId).subscribe({
         next: (s) => {
+          console.log(s)
           this.isLoading = false
           this.student = s;
         },
