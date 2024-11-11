@@ -86,7 +86,7 @@ export class StudentsComponent implements OnInit {
 
   onDelete(id: number) {
     this.isLoading = true;
-    if (confirm('Esta seguro?')) {
+    if (confirm('¿Está seguro?')) {
       this.StudentsService.removeStudentById(id).subscribe({
         next: (students) => {
           this.dataSource = students;

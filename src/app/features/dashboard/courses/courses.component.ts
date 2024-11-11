@@ -29,13 +29,20 @@ export class CoursesComponent implements OnInit {
     this.loadCourses()
   }
 
-  loadCourses(){
+  loadCourses() {
     this.courseService.getCourses().subscribe({
-      next: (c) =>{
-        this.isLoading = false
-        this.courses = c
-      }
-    })
+      next: (c) => {
+        this.courses = c;
+        this.isLoading = false;
+      },
+      error: () => {
+        this.isLoading = false;
+        console.error("Error al cargar los cursos");
+      },
+      complete: () => {
+        this.isLoading = false;
+      },
+    });
   }
 
   openModal(editingCourse?: Courses) {
@@ -52,7 +59,12 @@ export class CoursesComponent implements OnInit {
             if (editingCourse) {
               this.handleUpdate(editingCourse.id, result);
             } else {
-              this.handleAdd(result);
+              this.courseService
+              .addCourses(result)
+              .subscribe({
+                next: () => this.loadCourses()
+              })
+              console.log(result)
             }
           }
         },
@@ -74,25 +86,9 @@ export class CoursesComponent implements OnInit {
       },
     });
   }
-
-  handleAdd(newStudent: Courses): void {
-    this.isLoading = true;
-    this.courseService.addCourses(newStudent).subscribe({
-      next: (c) => {
-        this.courses = c;
-      },
-      complete: () => {
-        this.isLoading = false;
-      },
-      error: () => {
-        this.isLoading = false;
-      },
-    });
-  }
-
   onDelete(id: number) {
     this.isLoading = true;
-    if (confirm('Esta seguro?')) {
+    if (confirm('¿Está seguro?')) {
       this.courseService.removeCoursesById(id).subscribe({
         next: (c) => {
           this.courses = c;

@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatDrawer } from '@angular/material/sidenav';
 import { Observable } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { User } from '../models';
+import { User } from 'src/app/features/dashboard/models';
 
 @Component({
   selector: 'app-toolbar',

@@ -21,18 +21,25 @@ export class CoursesDetailComponent implements OnInit {
   
   ngOnInit(): void {
     this.courseId = Number(this.activatedRoute.snapshot.params['id'])
+    console.log("Course ID:", this.courseId)
 
     if (this.courseId) {
-      this.courseService.getCourseById(this.courseId).subscribe({
-        next: (c) => {
-          this.isLoading = false
-          this.course = c;
-        },
-        error: (err) => {
-          this.isLoading = false
-          console.error(err)
-        }
-      });
+      this.loadCourseDetails(this.courseId);
     }
+  }
+
+
+
+  loadCourseDetails(id: number) {
+    this.courseService.getCourseById(id).subscribe({
+      next: (c) => {
+        this.isLoading = false;
+        this.course = c;
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error(err);
+      }
+    });
   }
 }
