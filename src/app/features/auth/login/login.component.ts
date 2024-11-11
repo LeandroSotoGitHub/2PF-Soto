@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { FormValidatorService } from 'src/app/core/services/form-validator.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { FormValidatorHelper } from 'src/app/shared/utils/form-validator.helper';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +16,6 @@ export class LoginComponent {
   constructor(
     private router:Router,
     private fb:FormBuilder,
-    private formValidatorService: FormValidatorService,
     private authService:AuthService
   ){this.loginForm = fb.group({
     email: ['',[Validators.required, Validators.email]],
@@ -50,11 +49,11 @@ export class LoginComponent {
   }
 
   getErrorMessage(controlName: string): string{
-    return this.formValidatorService.getErrorMessage(this.loginForm, controlName)
+    return FormValidatorHelper.getErrorMessage(this.loginForm, controlName);
   }
 
   hasError(controlName: string): boolean {
-    return this.formValidatorService.hasError(this.loginForm, controlName);
+    return FormValidatorHelper.hasError(this.loginForm, controlName);
   }
 
   toRegister(){

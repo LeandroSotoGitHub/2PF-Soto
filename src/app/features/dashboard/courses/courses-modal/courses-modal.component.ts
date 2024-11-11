@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormValidatorService } from 'src/app/core/services/form-validator.service';
 import { StudentsDialogComponent } from '../../students/students-dialog/students-dialog.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Courses } from '../models';
+import { FormValidatorHelper } from 'src/app/shared/utils/form-validator.helper';
 
 interface CoursesModalData {
   editingCourse?: Courses
@@ -22,7 +22,6 @@ export class CoursesModalComponent {
 
   constructor(
     private fb: FormBuilder,
-    private formValidatorService: FormValidatorService,
     private MatDialogRef: MatDialogRef<StudentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data?: CoursesModalData
   ){ 
@@ -35,11 +34,11 @@ export class CoursesModalComponent {
   }
 
   getErrorMessage(controlName: string): string{
-    return this.formValidatorService.getErrorMessage(this.courseForm, controlName)
+    return FormValidatorHelper.getErrorMessage(this.courseForm, controlName);
   }
 
   hasError(controlName: string): boolean {
-    return this.formValidatorService.hasError(this.courseForm, controlName);
+    return FormValidatorHelper.hasError(this.courseForm, controlName);
   }
 
   onSave(): void {
