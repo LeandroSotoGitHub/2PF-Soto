@@ -14,8 +14,7 @@ import { environment } from 'src/environments/environment.development';
 })
 
 export class AuthService {
-  // private _authUser$ = new BehaviorSubject<User | null>(null);
-  public authUser$: Observable<any>
+  public authUser$: Observable< User | null>
   private baseUrl = environment.apiBaseUrl
 
 
@@ -24,7 +23,7 @@ export class AuthService {
     private httpClient: HttpClient,
     private store: Store
   ) {
-      this.authUser$ = this.store.select(selectAuthenticatedUser);
+      this.authUser$ = this.store.select(selectAuthenticatedUser)
   }
 
   private handleAuth(u:User[]): User | null{
@@ -39,30 +38,35 @@ export class AuthService {
 
   login(data: AuthData): Observable<User> {
     return this.httpClient.get<User[]>(`${this.baseUrl}/users?email=${data.email}&password=${data.password}`)
-    .pipe(map((u) => {
-      const user = this.handleAuth(u)
-      if(user){
-        return user
-      }else{
-        throw throwError(() => new Error('Los datos son invalidos'))
-      }
-    }),
-    catchError((err) =>{
-      return throwError(() => new Error('Los datos son invalidos'))
-    })
-  )
+      .pipe(
+        map((u) => {
+          const user = this.handleAuth(u);
+          if (user) {
+            return user;
+          } else {
+            throw throwError(() => new Error('Los datos son inválidos'));
+          }
+        }),
+        catchError((err) => {
+          return throwError(() => new Error('Los datos son inválidos'));
+        })
+      );
   }
-  verifyToken(): Observable<boolean>{
+  
+  verifyToken(): Observable<boolean> {
     return this.httpClient.get<User[]>(`${this.baseUrl}/users?token=${localStorage.getItem('token')}`)
-    .pipe(map((u) => {
-      const user = this.handleAuth(u)
-      return !!user
-    }))
+      .pipe(
+        map((u) => {
+          const user = this.handleAuth(u);
+          return !!user;
+        }),
+        catchError(() => of(false))
+      );
   }
-  logout() {
-    this.store.dispatch(AuthActions.unsetAuthenticatedUser())
-    this.router.navigate(['auth', 'login'])
-    localStorage.removeItem('token')
-  }
+  logout(): void {
+    this.store.dispatch(AuthActions.unsetAuthenticatedUser());
+    this.router.navigate(['auth', 'login']);
+    localStorage.removeItem('token');
+  }  
 }
  
