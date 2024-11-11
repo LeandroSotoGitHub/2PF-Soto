@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
 import { AuthData } from 'src/app/features/auth/models';
 import { User } from 'src/app/features/dashboard/models';
+import { AuthActions } from 'src/app/store/actions/auth.actions';
+import { selectAuthenticatedUser } from 'src/app/store/selectors/auth.selectors';
 import { environment } from 'src/environments/environment.development';
 
 @Injectable({
@@ -11,19 +14,22 @@ import { environment } from 'src/environments/environment.development';
 })
 
 export class AuthService {
-  private _authUser$ = new BehaviorSubject<null | User>(null);
-  public authUser$ = this._authUser$.asObservable();
+  // private _authUser$ = new BehaviorSubject<User | null>(null);
+  public authUser$: Observable<any>
   private baseUrl = environment.apiBaseUrl
 
 
   constructor(
     private router: Router, 
-    private httpClient: HttpClient
-  ) {}
+    private httpClient: HttpClient,
+    private store: Store
+  ) {
+      this.authUser$ = this.store.select(selectAuthenticatedUser);
+  }
 
   private handleAuth(u:User[]): User | null{
     if(!!u[0]){
-      this._authUser$.next(u[0])
+      this.store.dispatch(AuthActions.setAuthenticatedUser({user: u[0]}))
       localStorage.setItem('token', u[0].token)
       return u[0]
     }else{
@@ -54,7 +60,7 @@ export class AuthService {
     }))
   }
   logout() {
-    this._authUser$.next(null);
+    this.store.dispatch(AuthActions.unsetAuthenticatedUser())
     this.router.navigate(['auth', 'login'])
     localStorage.removeItem('token')
   }

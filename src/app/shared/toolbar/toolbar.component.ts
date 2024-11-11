@@ -16,5 +16,5 @@ export class ToolbarComponent {
     this.authUser = authService.authUser$
   }
 
-  authUser: Observable<User | null>
+  authUser: Observable<User | null >
 }
