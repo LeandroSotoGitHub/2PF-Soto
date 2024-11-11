@@ -25,7 +25,13 @@ export class ClassesComponent implements OnInit{
         this.isLoading = false
         this.courses = c
         this.selectedCourse = this.courses[0]
-      } 
+      },
+      error: (err) => {
+        console.log(err)
+      },
+      complete: () =>{
+        this.isLoading = false
+      }
     })
   }
 }

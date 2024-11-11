@@ -91,7 +91,8 @@ export class StudentsComponent implements OnInit {
         next: (students) => {
           this.dataSource = students;
         },
-        error: () => {
+        error: (e) => {
+          console.log(e)
           this.isLoading = false;
         },
         complete: () => {

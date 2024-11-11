@@ -93,7 +93,8 @@ export class CoursesComponent implements OnInit {
         next: (c) => {
           this.courses = c;
         },
-        error: () => {
+        error: (err) => {
+          console.error(err)
           this.isLoading = false;
         },
         complete: () => {
