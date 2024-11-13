@@ -1,3 +1,4 @@
 export const environment = {
-    apiBaseUrl: 'http://prueba.com.ar'
+    apiBaseUrl: 'https://jsonserverapi-code.onrender.com'
+    
 };
