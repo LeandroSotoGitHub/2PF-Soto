@@ -1,0 +1,22 @@
+<form [formGroup]="enrollmentForm">
+    <mat-form-field appearance="outline">
+        <mat-label>Selecciona un curso</mat-label>
+        <mat-select formControlName="courseId">
+          <mat-option [value]="course.id" *ngFor="let course of coursesOptions$ | async">
+            {{ course.name }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+        <mat-label>Selecciona un curso</mat-label>
+        <mat-select formControlName="studentId">
+          <mat-option [value]="student.id" *ngFor="let student of studentsOptions$ | async">
+            {{ student.firstName + ' ' + student.lastName }}
+          </mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-flat-button (click)="onSubmit()"> Enviar </button>
+</form>
+
+
+<p>{{ enrollments$ | async | json}}</p>

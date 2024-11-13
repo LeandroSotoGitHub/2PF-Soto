@@ -23,6 +23,11 @@ const routes: Routes = [
       import('./classes/classes.module').then((m) => m.ClassesModule)
   },
   {
+    path: 'enrollments',
+    loadChildren: () => 
+      import('./enrollments/enrollments.module').then((m) => m.EnrollmentsModule)
+  },
+  {
     path: '**',
     redirectTo: 'home'
   }

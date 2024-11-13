@@ -9,7 +9,8 @@ const routes: Routes = [
   },
   {
     path: ':id/detail', component: CoursesDetailComponent
-  }
+  },
+  {path:'**', redirectTo: ''}
 ];
 
 @NgModule({

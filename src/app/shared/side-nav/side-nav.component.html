@@ -36,6 +36,15 @@
       Clases
     </a>
     <a
+      routerLink="enrollments"
+      routerLinkActive
+      #enrollmentLink="routerLinkActive"
+      [activated]="enrollmentLink.isActive"
+      mat-list-item>
+      <mat-icon matListItemIcon>how_to_reg</mat-icon>
+      Inscripción
+    </a>
+    <a
       (click)="logout()"
       mat-list-item>
       <mat-icon matListItemIcon>logout</mat-icon>

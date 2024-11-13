@@ -8,6 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { RootReducer } from './store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { RootReducer } from './store';
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: !isDevMode()
-    })
+    }),
+    EffectsModule.forRoot([])
   ],
   providers: [provideAnimations()],
   bootstrap: [AppComponent]

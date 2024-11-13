@@ -5,5 +5,5 @@ export interface Courses {
     name: string,
     startDate: Date,
     endDate: Date,
-    classes: Class[]
+    classes?: Class[]
 }

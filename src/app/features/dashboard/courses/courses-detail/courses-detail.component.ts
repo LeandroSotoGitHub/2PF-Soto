@@ -39,6 +39,9 @@ export class CoursesDetailComponent implements OnInit {
       error: (err) => {
         this.isLoading = false;
         console.error(err);
+      },
+      complete: ()=>{
+        this.isLoading = false
       }
     });
   }
