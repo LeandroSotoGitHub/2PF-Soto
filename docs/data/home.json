@@ -1,0 +1,20 @@
+[
+    {
+      "title": "Estudiantes",
+      "description": "Accede a la lista de estudiantes, inscríbelos en cursos o edita su información.",
+      "link": "/dashboard/students",
+      "buttonText": "Gestionar Estudiantes"
+    },
+    {
+      "title": "Cursos",
+      "description": "Consulta los cursos disponibles, edítalos o asigna estudiantes a cada uno.",
+      "link": "/dashboard/courses",
+      "buttonText": "Gestionar Cursos"
+    },
+    {
+      "title": "Clases",
+      "description": "Administra las clases, crea, borra o edita las clases.",
+      "link": "/dashboard/classes",
+      "buttonText": "Gestionar Clases"
+    }
+  ]
