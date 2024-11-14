@@ -7,7 +7,16 @@
       "email": "admin@admin.com",
       "password": "123456",
       "token": "sdkjfksndfsa;kh123123312",
-      "role": "ADMIN"
+      "role": "admin"
+    },
+    {
+      "id": "ccdb",
+      "email": "peque.soto32@gmail.com",
+      "password": "123456",
+      "role": "user",
+      "firstName": "Leandro",
+      "lastName": "Soto",
+      "token": "2x4S1pmsrNzvzh561DM9"
     }
   ],
   "students": [

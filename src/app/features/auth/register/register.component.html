@@ -1,32 +1,48 @@
-<p>register works!</p>
-
-<!-- <mat-card-header class="mb-3">
+<mat-card-header class="mb-3">
     <mat-card-title>Crear Usuario</mat-card-title>
   </mat-card-header>
   <mat-card-content>
-    <form>
+    <form [formGroup]="registerForm">
+      
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="Nombre" formControlName="firstName"/>
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="hasError('firstName')">{{ getErrorMessage('firstName') }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Apellido</mat-label>
+        <input matInput placeholder="Apellido" formControlName="lastName" />
+        <mat-icon matSuffix>person</mat-icon>
+        <mat-error *ngIf="hasError('lastName')">{{ getErrorMessage('lastName') }}</mat-error>
+      </mat-form-field>
+
       <mat-form-field appearance="outline" class="w-100" >
-        <mat-label>Usuario</mat-label>
-        <input matInput placeholder="Usuario"/>
+        <mat-label>E-mail</mat-label>
+        <input matInput placeholder="example@example.com" formControlName="email" />
         <mat-icon matSuffix>email</mat-icon>
+        <mat-error *ngIf="hasError('email')">{{ getErrorMessage('email') }}</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="w-100">
         <mat-label>Contraseña</mat-label>
-        <input matInput placeholder="Contraseña" />
+        <input matInput placeholder="Contraseña" formControlName="password"/>
         <mat-icon matSuffix>key</mat-icon>
+        <mat-error *ngIf="hasError('password')">{{ getErrorMessage('password') }}</mat-error>
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="w-100">
+      <!-- <mat-form-field appearance="outline" class="w-100">
         <mat-label>ROL</mat-label>
-        <mat-select>
+        <mat-select formControlName="role">
           <mat-option value="admin">ADMIN</mat-option>
           <mat-option value="user">USER</mat-option>
         </mat-select>
-      </mat-form-field>
+        <mat-error *ngIf="hasError('role')">{{ getErrorMessage('role') }}</mat-error>
+      </mat-form-field> -->
     </form>
   </mat-card-content>
   <div mat-card-actions>
-    <button mat-raised-button class="w-25 m-3">Validar</button>
-    <button mat-raised-button class="w-25" routerLink="register">Registrarse</button>
-  </div> -->
+    <button mat-raised-button class="w-25 m-3" (click)="onSubmit()">Validar</button>
+    <button mat-raised-button class="w-25" (click)="toLogin()">Iniciar sesión</button>
+  </div>

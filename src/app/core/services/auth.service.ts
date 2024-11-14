@@ -63,10 +63,28 @@ export class AuthService {
         catchError(() => of(false))
       );
   }
+
+
   logout(): void {
     this.store.dispatch(AuthActions.unsetAuthenticatedUser());
     this.router.navigate(['auth', 'login']);
     localStorage.removeItem('token');
-  }  
+  }
+  
+  register(data: User): Observable<User> {
+    return this.httpClient.post<User>(`${this.baseUrl}/users`, data).pipe(
+      map((user) => {
+        if (user) {
+          return user;
+        } else {
+          throw throwError(() => new Error('No se pudo registrar el usuario'));
+        }
+      }),
+      catchError((err) => {
+        return throwError(() => new Error('Error en el registro del usuario'));
+      })
+    );
+  }
+
 }
  
