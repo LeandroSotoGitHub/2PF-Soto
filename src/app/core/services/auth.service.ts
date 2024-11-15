@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { BehaviorSubject, catchError, map, Observable, of, throwError } from 'rxjs';
+import { catchError, map, Observable, of, throwError } from 'rxjs';
 import { AuthData } from 'src/app/features/auth/models';
 import { User } from 'src/app/features/dashboard/models';
 import { AuthActions } from 'src/app/store/actions/auth.actions';
