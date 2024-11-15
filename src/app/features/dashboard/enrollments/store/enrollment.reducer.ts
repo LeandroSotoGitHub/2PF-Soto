@@ -3,7 +3,7 @@ import { EnrollmentActions } from './enrollment.actions';
 import { Enrollment } from '../models';
 import { Student } from '../../students/models';
 import { Courses } from '../../courses/models';
-import { generateUniqueId } from 'src/app/shared/utils';
+import { generateToken } from 'src/app/shared/utils';
 
 export const enrollmentFeatureKey = 'enrollment';
 
@@ -86,7 +86,7 @@ export const reducer = createReducer(
   on(EnrollmentActions.createEnrollment, (state, action) => {
     return {
       ...state,
-      enrollments: [...ENROLLMENTS_DB, { id:'12221', studentId: action.studentId, courseId: action.courseId }]
+      enrollments: [...ENROLLMENTS_DB, { id:generateToken(5) , studentId: action.studentId, courseId: action.courseId }]
     }
   })
 );

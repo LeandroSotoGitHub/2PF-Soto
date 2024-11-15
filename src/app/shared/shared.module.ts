@@ -22,6 +22,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { RouterModule } from '@angular/router';
     MatExpansionModule,
     MatDialogModule,
     ToolbarComponent,
-    SideNavComponent
+    SideNavComponent,
+    MatPaginatorModule
   ],
 })
 export class SharedModule { }
