@@ -17,6 +17,33 @@
       "firstName": "Leandro",
       "lastName": "Soto",
       "token": "2x4S1pmsrNzvzh561DM9"
+    },
+    {
+      "id": "8906",
+      "email": "example@example.com",
+      "password": "123456",
+      "role": "user",
+      "firstName": "Juan",
+      "lastName": "Perez",
+      "token": "6QR8p6ZeGLUz5xDRalLz"
+    },
+    {
+      "id": "59a1",
+      "email": "pedro@mail.com",
+      "password": "123456",
+      "role": "user",
+      "firstName": "pedro",
+      "lastName": "pedro",
+      "token": "QJwSL7NEphfG9jWgTkN9"
+    },
+    {
+      "id": "ca37",
+      "email": "pedro@pedro.com",
+      "password": "123456",
+      "role": "user",
+      "firstName": "pedro",
+      "lastName": "pedro",
+      "token": "Q9lAQFcS4GsWU2sFLDrS"
     }
   ],
   "students": [
@@ -82,6 +109,13 @@
           "title": "Clase 02 - Sistemas de diseno"
         }
       ]
+    }
+  ],
+  "enrollments": [
+    {
+      "id": "72a8",
+      "studentId": "4176",
+      "courseId": "ac9d"
     }
   ]
 }

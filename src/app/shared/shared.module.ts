@@ -23,6 +23,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -72,7 +74,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDialogModule,
     ToolbarComponent,
     SideNavComponent,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSnackBarModule
   ],
 })
 export class SharedModule { }

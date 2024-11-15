@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { catchError, of } from 'rxjs';
 import { AuthService } from 'src/app/core/services/auth.service';
@@ -18,7 +19,8 @@ export class RegisterComponent {
   constructor(
     private fb: FormBuilder,
     private router:Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private _snackBar: MatSnackBar 
   ){
     this.registerForm = fb.group({
       email: ['',[Validators.required, Validators.email]],
@@ -41,12 +43,21 @@ export class RegisterComponent {
         next: (user) => {
           console.log('Registro exitoso con token:', user)
           this.router.navigate(['/auth/login'])
+          this._snackBar.open('¡Registro exitoso!', 'Cerrar', {
+            duration: 3000,
+            panelClass: ['success-snackbar']
+          })
         },
         error: (err) => {
           console.error(err)
-          if (err instanceof Error) {
-            alert(err.message)
-          }
+          this._snackBar.open(
+            'Error durante el registro: ' + (err.message || 'Inténtalo de nuevo'),
+            'Cerrar',
+            {
+              duration: 3000,
+              panelClass: ['error-snackbar']
+            }
+          );
         }
       })
     }

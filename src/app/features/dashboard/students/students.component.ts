@@ -4,6 +4,7 @@ import { StudentsDialogComponent } from './students-dialog/students-dialog.compo
 import { Student } from './models';
 import { StudentsService } from '../../../core/services/students.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-students',
@@ -16,7 +17,8 @@ export class StudentsComponent implements OnInit {
     private matDialog: MatDialog,
     private StudentsService: StudentsService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ) {}
 
   isLoading: boolean = false;
@@ -60,22 +62,52 @@ export class StudentsComponent implements OnInit {
               this.StudentsService
               .addStudent(result)
               .subscribe({
-                next: () => this.loadStudents()
+                next: () => {
+                  this.loadStudents()
+                  this._snackBar.open('Estudiante creado con éxito', 'Cerrar', {
+                    duration: 3000,
+                  })
+                },
+                error: () => {
+                  this._snackBar.open(
+                    'Error al crear el estudiante. Inténtelo nuevamente.',
+                    'Cerrar',
+                    {
+                      duration: 3000,
+                      panelClass: ['error-snackbar']
+                    }
+                  );
+                }
               })
             }
           }
         },
-      });
+      })
   }
 
   handleUpdate(id: number, update: Student) {
     this.isLoading = true;
     this.StudentsService.updateStudentById(id, update).subscribe({
       next: (students) => {
-        this.dataSource = students;
+        this.dataSource = students
+        this._snackBar.open('Estudiante editado con éxito', 'Cerrar', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        })
       },
       error: () => {
-        this.isLoading = false;
+        this._snackBar.open(
+          'Error al editar el estudiante. Inténtelo nuevamente.',
+          'Cerrar',
+          {
+            duration: 3000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top',
+            panelClass: ['error-snackbar'], // Opcional
+          }
+        )
+        this.isLoading = false
       },
       complete: () => {
         this.isLoading = false;
@@ -89,10 +121,21 @@ export class StudentsComponent implements OnInit {
     if (confirm('¿Está seguro?')) {
       this.StudentsService.removeStudentById(id).subscribe({
         next: (students) => {
-          this.dataSource = students;
+          this.dataSource = students
+          this._snackBar.open('Estudiante eliminado con éxito', 'Cerrar', {
+            duration: 3000,
+          })
         },
         error: (e) => {
           console.log(e)
+          this._snackBar.open(
+            'Error al eliminar el estudiante. Inténtelo nuevamente.',
+            'Cerrar',
+            {
+              duration: 3000,
+              panelClass: ['error-snackbar']
+            }
+          )
           this.isLoading = false;
         },
         complete: () => {

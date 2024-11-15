@@ -8,14 +8,6 @@ import { generateToken } from 'src/app/shared/utils';
 export const enrollmentFeatureKey = 'enrollment';
 
 
-const ENROLLMENTS_DB: Enrollment[] = [
-  {
-    id: 'a2n3',
-    studentId: 'asd2',
-    courseId: '123w',
-  }
-]
-
 const STUDENTS_DB: Student[] = [
   {
     createdAt:new Date(),
@@ -52,15 +44,19 @@ const COURSES_DB: Courses[] = [
 
 
 export interface State {
-  enrollments: Enrollment[],
-  students: Student[],
+  isLoading: Boolean
+  enrollments: Enrollment[]
+  students: Student[]
   courses: Courses[]
+  loadEnrollmentsError: unknown 
 }
 
 export const initialState: State = {
+  isLoading: false,
   enrollments:[],
   students: [],
-  courses: []
+  courses: [],
+  loadEnrollmentsError: null
 };
 
 export const reducer = createReducer(
@@ -68,7 +64,22 @@ export const reducer = createReducer(
   on(EnrollmentActions.loadEnrollments, state => {
     return {
       ...state,
-      enrollments: [...ENROLLMENTS_DB]
+      isLoading: true
+    }
+  }),
+  on(EnrollmentActions.loadEnrollmentsSucess, (state, action) => {
+    return{
+      ...state,
+      enrollments: action.data,
+      loadEnrollmentsError:null,
+      isLoading: false
+    }
+  }),
+  on(EnrollmentActions.loadEnrollmentsFailure, (state,action)=>{
+    return{
+      ...state,
+      ...initialState,
+      loadEnrollmentsError: action.error
     }
   }),
   on(EnrollmentActions.loadCoursesOptions, state => {
@@ -86,7 +97,10 @@ export const reducer = createReducer(
   on(EnrollmentActions.createEnrollment, (state, action) => {
     return {
       ...state,
-      enrollments: [...ENROLLMENTS_DB, { id:generateToken(5) , studentId: action.studentId, courseId: action.courseId }]
+      enrollments: [
+        ...state.enrollments, 
+        { id:generateToken(5) , studentId: action.studentId, courseId: action.courseId }
+      ]
     }
   })
 );
