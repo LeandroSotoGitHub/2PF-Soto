@@ -4,6 +4,7 @@ import { Courses } from './models';
 import { MatDialog } from '@angular/material/dialog';
 import { CoursesModalComponent } from './courses-modal/courses-modal.component';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-courses',
@@ -22,7 +23,8 @@ export class CoursesComponent implements OnInit {
     private courseService: CourseService,
     private matDialog: MatDialog,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private _snackBar: MatSnackBar
   ){}
 
   ngOnInit(): void {
@@ -59,12 +61,18 @@ export class CoursesComponent implements OnInit {
             if (editingCourse) {
               this.handleUpdate(editingCourse.id, result);
             } else {
-              this.courseService
-              .addCourses(result)
-              .subscribe({
-                next: () => this.loadCourses()
-              })
-              console.log(result)
+              this.courseService.addCourses(result).subscribe({
+                next: () => {
+                  this.loadCourses();
+                  this._snackBar.open('Curso creado con éxito', 'Cerrar', { duration: 3000})
+                },
+                error: () => {
+                  this._snackBar.open(
+                    'Error al crear el curso. Inténtelo nuevamente.',
+                    'Cerrar', {duration: 3000} 
+                  );
+                },
+              });
             }
           }
         },
@@ -77,8 +85,11 @@ export class CoursesComponent implements OnInit {
     this.courseService.updateCoursesById(id, update).subscribe({
       next: (c) => {
         this.courses = c;
+        this._snackBar.open('Curso editado con éxito', 'Cerrar', { duration: 3000 })
       },
       error: () => {
+        this._snackBar.open(
+          'Error al editar el curso. Inténtelo nuevamente.', 'Cerrar', {duration: 3000 })
         this.isLoading = false;
       },
       complete: () => {
@@ -86,23 +97,29 @@ export class CoursesComponent implements OnInit {
       },
     });
   }
+
   onDelete(id: number) {
-    this.isLoading = true;
-    if (confirm('¿Está seguro?')) {
-      this.courseService.removeCoursesById(id).subscribe({
-        next: (c) => {
-          this.courses = c;
-        },
-        error: (err) => {
-          console.error(err)
-          this.isLoading = false;
-        },
-        complete: () => {
-          this.isLoading = false;
-        },
-      });
-    }
+  this.isLoading = true;
+  if (confirm('¿Está seguro?')) {
+    this.courseService.removeCoursesById(id).subscribe({
+      next: (c) => {
+        this.courses = c;
+        this._snackBar.open('Curso eliminado con éxito', 'Cerrar', { duration: 3000 })
+      },
+      error: (err) => {
+        console.error(err);
+        this._snackBar.open(
+          'Error al eliminar el curso. Inténtelo nuevamente.',
+          'Cerrar', { duration: 3000 }
+        );
+        this.isLoading = false
+      },
+      complete: () => {
+        this.isLoading = false
+      },
+    });
   }
+}
 
   goToDetail(id: number) {
     this.router.navigate([id,'detail'], { relativeTo: this.activatedRoute })

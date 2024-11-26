@@ -20,9 +20,13 @@
           <button mat-flat-button (click)="onSubmit()"> Enviar </button>
         </form>
       </div>
-  </div>
+      <mat-spinner *ngIf="(EnrollmentsLoading$ | async)"></mat-spinner>
+      <ng-container *ngIf="!(EnrollmentsLoading$ | async)">
+        <pre>{{ enrollments$ | async | json}}</pre>
+      </ng-container>
+</div>
+      
   
-  <p>{{ enrollments$ | async | json}}</p>
   
 
 

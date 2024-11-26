@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { noNumbersValidator } from 'src/app/core/validators/validators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Student } from '../models';
 import { FormValidatorHelper } from 'src/app/shared/utils/form-validator.helper';
+import { generateToken } from '../../../../shared/utils/index';
 
 interface StudentDialogData {
   editingStudent?: Student
@@ -48,7 +48,7 @@ export class StudentsDialogComponent {
         ...this.studentsForm.value,
         id: this.isEditing
           ? this.data!.editingStudent!.id
-          : this.generateUniqueId(),
+          : generateToken(4),
         createdAt: this.isEditing
           ? this.data!.editingStudent!.createdAt
           : new Date(),

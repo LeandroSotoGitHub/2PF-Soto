@@ -54,19 +54,16 @@ export class StudentsComponent implements OnInit {
       .afterClosed()
       .subscribe({
         next: (result) => {
-          console.log(result);
           if (!!result) {
             if (editingStudent) {
-              this.handleUpdate(editingStudent.id, result);
+              this.handleUpdate(editingStudent.id, result) 
             } else {
-              this.StudentsService
-              .addStudent(result)
-              .subscribe({
+              this.StudentsService.addStudent(result).subscribe({
                 next: () => {
-                  this.loadStudents()
+                  this.loadStudents();
                   this._snackBar.open('Estudiante creado con éxito', 'Cerrar', {
                     duration: 3000,
-                  })
+                  });
                 },
                 error: () => {
                   this._snackBar.open(
@@ -74,18 +71,18 @@ export class StudentsComponent implements OnInit {
                     'Cerrar',
                     {
                       duration: 3000,
-                      panelClass: ['error-snackbar']
+                      panelClass: ['error-snackbar'],
                     }
                   );
-                }
-              })
+                },
+              });
             }
           }
         },
-      })
+      });
   }
 
-  handleUpdate(id: number, update: Student) {
+  handleUpdate(id: string, update: Student) {
     this.isLoading = true;
     this.StudentsService.updateStudentById(id, update).subscribe({
       next: (students) => {
@@ -103,8 +100,7 @@ export class StudentsComponent implements OnInit {
           {
             duration: 3000,
             horizontalPosition: 'right',
-            verticalPosition: 'top',
-            panelClass: ['error-snackbar'], // Opcional
+            verticalPosition: 'top'
           }
         )
         this.isLoading = false
@@ -116,7 +112,7 @@ export class StudentsComponent implements OnInit {
   }
 
 
-  onDelete(id: number) {
+  onDelete(id: string) {
     this.isLoading = true;
     if (confirm('¿Está seguro?')) {
       this.StudentsService.removeStudentById(id).subscribe({
@@ -145,7 +141,7 @@ export class StudentsComponent implements OnInit {
     }
   }
 
-  goToDetail(id: number) {
+  goToDetail(id: string) {
     this.router.navigate([id,'detail'], { relativeTo: this.activatedRoute })
   }
 }

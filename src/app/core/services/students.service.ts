@@ -19,23 +19,23 @@ export class StudentsService {
     return this.httpClient.get<Student[]>(`${this.baseUrl}/students`)
   }
 
-  removeStudentById(id: number): Observable<Student[]> {
+  removeStudentById(id: string): Observable<Student[]> {
     return this.httpClient.delete<Student>(`${this.baseUrl}/students/${id}`)
     .pipe(concatMap(() => this.getStudents()))
   }
 
 
-  updateStudentById(id: number, update: Partial<Student>): Observable<Student[]> {
+  updateStudentById(id: string, update: Partial<Student>): Observable<Student[]> {
     return this.httpClient.patch(`${this.baseUrl}/students/${id}`, update)
     .pipe(concatMap(()=> this.getStudents()))
   }
 
-  addStudent(newStudent: Omit<Student, 'id'>): Observable<Student> {
+  addStudent(newStudent: Omit<Student, "id">): Observable<Student> {
     return this.httpClient.post<Student>(`${this.baseUrl}/students`, {...newStudent, createdAt: new Date().toISOString()})
   }
 
 
-  getStudentsBy(id:number): Observable<Student|undefined>{
+  getStudentsBy(id:string): Observable<Student|undefined>{
     return this.httpClient.get<Student>(`${this.baseUrl}/students/${id}`)
   }
 }

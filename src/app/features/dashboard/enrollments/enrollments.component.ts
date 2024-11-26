@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import { EnrollmentActions } from './store/enrollment.actions';
 import { Observable } from 'rxjs';
 import { Enrollment } from './models';
-import { selectCourses, selectEnrollments, selectEnrollmentsError, selectStudents } from './store/enrollment.selectors';
+import { selectCourses, selectEnrollments, selectEnrollmentsError, selectEnrollmentsLoading, selectStudents } from './store/enrollment.selectors';
 import { Student } from '../students/models';
 import { Courses } from '../courses/models';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -22,6 +22,7 @@ export class EnrollmentsComponent implements OnInit {
   studentsOptions$: Observable<Student[]>
   coursesOptions$: Observable<Courses[]>
   loadServiceErrors$: Observable<unknown>
+  EnrollmentsLoading$: Observable<boolean>
 
   enrollmentForm: FormGroup
 
@@ -34,6 +35,7 @@ export class EnrollmentsComponent implements OnInit {
     this.studentsOptions$ = this.store.select(selectStudents)
     this.coursesOptions$ = this.store.select(selectCourses)
     this.loadServiceErrors$ = this.store.select(selectEnrollmentsError)
+    this.EnrollmentsLoading$ = this.store.select(selectEnrollmentsLoading)
 
     this.enrollmentForm = this.fb.group({
       courseId: [null, [Validators.required]],
@@ -61,7 +63,7 @@ export class EnrollmentsComponent implements OnInit {
       if (error) {
         this._snackBar.open('Ocurrió un error', 'Cerrar', { duration: 3000 })
       }
-    });
+    })
   }
 
 

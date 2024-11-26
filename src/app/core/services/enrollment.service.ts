@@ -14,6 +14,6 @@ export class EnrollmentService {
   ) { }
 
   getEnrollments():Observable<Enrollment[]>{
-    return this.HttpClient.get<Enrollment[]>(`${environment.apiBaseUrl}/courses`)
+    return this.HttpClient.get<Enrollment[]>(`${environment.apiBaseUrl}/enrollments?_embed=student&_embed=course`)
   }
 }

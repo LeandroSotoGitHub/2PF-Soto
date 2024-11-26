@@ -9,3 +9,4 @@ export const selectEnrollments = createSelector(selectEnrollmentState, (state) =
 export const selectCourses = createSelector(selectEnrollmentState, (state) => state.courses)
 export const selectStudents = createSelector(selectEnrollmentState, (state) => state.students)
 export const selectEnrollmentsError = createSelector(selectEnrollmentState, (state) => state.loadEnrollmentsError)
+export const selectEnrollmentsLoading = createSelector(selectEnrollmentState, (state) => state.isLoading)

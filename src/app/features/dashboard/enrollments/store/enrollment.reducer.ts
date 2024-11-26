@@ -12,21 +12,21 @@ const STUDENTS_DB: Student[] = [
   {
     createdAt:new Date(),
     firstName: 'capo',
-    id:1234,
+    id:'1234',
     lastName: 'peque',
     mail:'mail@mail.com'
   },
   {
     createdAt:new Date(),
     firstName: 'raro',
-    id:1334,
+    id:'1334',
     lastName: 'rarp',
     mail:'mail@msn.com'
   },
   {
     createdAt:new Date(),
     firstName: 'river',
-    id:2234,
+    id:'2234',
     lastName: 'carp',
     mail:'mail@monumental.com'
   },
@@ -44,7 +44,7 @@ const COURSES_DB: Courses[] = [
 
 
 export interface State {
-  isLoading: Boolean
+  isLoading: boolean
   enrollments: Enrollment[]
   students: Student[]
   courses: Courses[]

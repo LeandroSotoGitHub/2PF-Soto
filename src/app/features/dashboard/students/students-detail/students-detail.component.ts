@@ -9,7 +9,7 @@ import { Student } from '../models';
   styleUrls: ['./students-detail.component.css']
 })
 export class StudentsDetailComponent implements OnInit{
-  studentId?:number
+  studentId?:string
   student?: Student 
   isLoading: boolean = true
 
@@ -20,7 +20,7 @@ export class StudentsDetailComponent implements OnInit{
   ){ }
   
   ngOnInit(): void {
-    this.studentId = Number(this.activatedRoute.snapshot.params['id'])
+    this.studentId = this.activatedRoute.snapshot.params['id']
 
     console.log(this.studentId)
     if (this.studentId) {
