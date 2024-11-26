@@ -8,59 +8,31 @@ import { generateToken } from 'src/app/shared/utils';
 export const enrollmentFeatureKey = 'enrollment';
 
 
-const STUDENTS_DB: Student[] = [
-  {
-    createdAt:new Date(),
-    firstName: 'capo',
-    id:'1234',
-    lastName: 'peque',
-    mail:'mail@mail.com'
-  },
-  {
-    createdAt:new Date(),
-    firstName: 'raro',
-    id:'1334',
-    lastName: 'rarp',
-    mail:'mail@msn.com'
-  },
-  {
-    createdAt:new Date(),
-    firstName: 'river',
-    id:'2234',
-    lastName: 'carp',
-    mail:'mail@monumental.com'
-  },
-]
-
-
-const COURSES_DB: Courses[] = [
-  {
-    id: 3123,
-    endDate: new Date(),
-    startDate: new Date(),
-    name: 'loquepinteinscribiteporfavor',
-  }
-]
-
 
 export interface State {
   isLoading: boolean
   enrollments: Enrollment[]
-  students: Student[]
-  courses: Courses[]
+  studentsOptions: Student[]
+  coursesOptions: Courses[]
   loadEnrollmentsError: unknown 
 }
 
 export const initialState: State = {
   isLoading: false,
+  loadEnrollmentsError: null,
   enrollments:[],
-  students: [],
-  courses: [],
-  loadEnrollmentsError: null
+  studentsOptions: [],
+  coursesOptions: [],
 };
 
 export const reducer = createReducer(
   initialState,
+  on(EnrollmentActions.createEnrollment, (state) => {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }),
   on(EnrollmentActions.loadEnrollments, state => {
     return {
       ...state,
@@ -79,30 +51,32 @@ export const reducer = createReducer(
     return{
       ...state,
       ...initialState,
-      loadEnrollmentsError: action.error
+      loadEnrollmentsError: action.error,
+      isLoading: false
     }
   }),
-  on(EnrollmentActions.loadCoursesOptions, state => {
-    return{
-      ...state,
-      courses:[...COURSES_DB]
-    }
-  }),
-  on(EnrollmentActions.loadStudentsOptions, state =>{
-    return{
-      ...state,
-      students:[...STUDENTS_DB]
-    }
-  }),
-  on(EnrollmentActions.createEnrollment, (state, action) => {
-    return {
-      ...state,
-      enrollments: [
-        ...state.enrollments, 
-        { id:generateToken(5) , studentId: action.studentId, courseId: action.courseId }
-      ]
-    }
-  })
+ on(EnrollmentActions.loadEnrollmentsAndStudentsOptions, (state) => {
+  return {
+    ...state,
+    isLoading: true
+  }
+ }),
+ on(EnrollmentActions.loadEnrollmentsAndStudentsOptionsSuccess, (state, action) => {
+  return {
+    ...state,
+    loadEnrollmentsError: null,
+    isLoading: false,
+    studentsOptions: action.students,
+    coursesOptions: action.courses
+  }
+ }),
+ on(EnrollmentActions.loadEnrollmentsAndStudentsOptionsFailure, (state, {error}) => {
+  return {
+    ...state,
+    isLoading: false,
+    loadEnrollmentsError: error
+  }
+ }),
 );
 
 export const enrollmentFeature = createFeature({

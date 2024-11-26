@@ -44,8 +44,7 @@ export class EnrollmentsComponent implements OnInit {
   }
   ngOnInit(): void {
     this.store.dispatch(EnrollmentActions.loadEnrollments())
-    this.store.dispatch(EnrollmentActions.loadCoursesOptions())
-    this.store.dispatch(EnrollmentActions.loadStudentsOptions())
+    this.store.dispatch(EnrollmentActions.loadEnrollmentsAndStudentsOptions())
     this.onError()
   }
 
