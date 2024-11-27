@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 
-import { catchError, concatMap, delay, map } from 'rxjs/operators';
+import { catchError, concatMap, delay, map, mergeMap } from 'rxjs/operators';
 import { forkJoin, of, pipe } from 'rxjs';
 import { EnrollmentActions } from './enrollment.actions';
 import { EnrollmentService } from '../../../../core/services/enrollment.service';
@@ -76,9 +76,22 @@ export class EnrollmentEffects {
         )
       )
     );
-
-    
   });
+
+  deleteEnrollment$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(EnrollmentActions.deleteEnrollment),
+      mergeMap(action =>
+        this.enrollmentService.deleteEnrollment(action.id).pipe(
+          map(() => EnrollmentActions.deleteEnrollmentSuccess({ id: action.id })),
+          catchError(error =>
+            of(EnrollmentActions.deleteEnrollmentFailure({ error }))
+          )
+        )
+      )
+    )
+  );
+
   
   constructor(
     private actions$: Actions,

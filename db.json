@@ -84,19 +84,19 @@
   ],
   "enrollments": [
     {
-      "id": "72a8",
-      "studentId": "aoEo",
-      "courseId": "dc4e"
+      "id": "c886",
+      "courseId": "ac9d",
+      "studentId": "3289"
     },
     {
-      "id": "1a82",
-      "courseId": 3123,
-      "studentId": "1234"
-    },
-    {
-      "id": "57aa",
+      "id": "2f05",
       "courseId": "dc4e",
-      "studentId": "aoEo"
+      "studentId": "3289"
+    },
+    {
+      "id": "3d24",
+      "courseId": "70e8",
+      "studentId": "4176"
     }
   ]
 }

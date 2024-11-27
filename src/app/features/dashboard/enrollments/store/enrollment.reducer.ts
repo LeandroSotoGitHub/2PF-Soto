@@ -77,7 +77,15 @@ export const reducer = createReducer(
     loadEnrollmentsError: error
   }
  }),
-);
+ on(EnrollmentActions.deleteEnrollmentSuccess, (state, {id}) =>({
+   ...state,
+   enrollments: state.enrollments.filter(enrollment => enrollment.id !== id),
+ }),
+//  on(EnrollmentActions.deleteEnrollmentFailure, (state, {error}) =>({
+//   ...state,
+//   error
+//  }))
+));
 
 export const enrollmentFeature = createFeature({
   name: enrollmentFeatureKey,

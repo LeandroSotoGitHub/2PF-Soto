@@ -20,4 +20,8 @@ export class EnrollmentService {
   createEnrollment(data: Omit<Enrollment, 'id'| 'user' | 'product'>):Observable<Enrollment>{
     return this.HttpClient.post<Enrollment>(`${environment.apiBaseUrl}/enrollments`,data)
   }
+
+  deleteEnrollment(id: string): Observable<void> {
+    return this.HttpClient.delete<void>(`${environment.apiBaseUrl}/enrollments/${id}`);
+  }
 }

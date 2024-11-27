@@ -20,5 +20,9 @@ export const EnrollmentActions = createActionGroup({
     'Load Enrollments and Students Options': emptyProps(),
     'Load Enrollments and Students Options Success': props<{students: Student[], courses: Courses[]}>(),
     'Load Enrollments and Students Options Failure': props<{error: Error}>(),
+
+    'Delete Enrollment': props<{id: string}>(),
+    'Delete Enrollment Failure': props<{error: any}>(),
+    'Delete Enrollment Success': props<{id: string}>(),
   }
 });
